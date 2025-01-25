@@ -110,7 +110,6 @@ public class MemorySpace {
 			// If we find the block with the matching address
 			if (block.baseAddress == address) 
 			{
-				
 				if (prev == null) 
 				{
 					
