@@ -98,9 +98,7 @@ public class MemorySpace {
 	{
 		//// Write your code here
 	
-		if (freeList.getSize() == 0) {
-			throw new IllegalArgumentException("Cannot free memory. The free list is empty.");
-		}
+	    
 		Node cur = allocatedList.getFirst();
 		Node prev = null;
 		
@@ -110,6 +108,7 @@ public class MemorySpace {
 			// If we find the block with the matching address
 			if (block.baseAddress == address) 
 			{
+				
 				if (prev == null) 
 				{
 					
@@ -155,8 +154,6 @@ public class MemorySpace {
 	{
 		
 		//// Write your code here
-	
-			
 			if (freeList.getSize() > 1) {
 				Node cur = freeList.getFirst();
 				while (cur != null && cur.next != null) 
