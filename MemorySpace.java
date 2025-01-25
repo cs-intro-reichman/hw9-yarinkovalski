@@ -58,39 +58,32 @@ public class MemorySpace {
 	 * @return the base address of the allocated block, or -1 if unable to allocate
 	 */
 	public int malloc(int length) {		
-		//// Replace the following statement with your code
-
+		for (int i = 0; i < freeList.getSize(); i++) 
+		{
+			MemoryBlock fBlock = freeList.getBlock(i);
 			
-			for (int i = 0; i < freeList.getSize(); i++) 
+			if (fBlock.length >= length) 
 			{
-				MemoryBlock fBlock = freeList.getBlock(i);
-				
-				
-				if (fBlock.length >= length) 
-				{
-					int allAdress = fBlock.baseAddress;
-
-					MemoryBlock allocatedBlock = new MemoryBlock(allAdress, length);
-
-					
-					allocatedList.addLast(allocatedBlock);
-
+				int allAddress = fBlock.baseAddress;
 	
-					if (fBlock.length == length) 
-					{
-						
-						freeList.remove(i);
-					} else 
-					{
-						
-						fBlock.baseAddress = (fBlock.baseAddress + length);
-						fBlock.length = (fBlock.length - length);
-					}
-
-					return allAdress;
+				MemoryBlock allocatedBlock = new MemoryBlock(allAddress, length);
+	
+				allocatedList.addLast(allocatedBlock);
+	
+				if (fBlock.length == length) 
+				{
+					freeList.remove(i);
+				} else 
+				{
+					fBlock.baseAddress = fBlock.baseAddress + length;
+					fBlock.length = fBlock.length - length;
 				}
+	
+				return allAddress;
 			}
-			return -1;
+		}
+	
+		return -1;
 	}
 
 	/**
