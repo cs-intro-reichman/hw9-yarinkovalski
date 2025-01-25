@@ -221,10 +221,16 @@ public class LinkedList {
 	 */
 	public void remove(Node node) 
 	{
-		if (node == null || first == null) 
+		if (node == null) 
+		{
+			throw new NullPointerException("Node cannot be null");
+		}
+	
+		if (first == null) 
 		{
 			return;
 		}
+	
 		if (node == this.first) 
 		{
 			this.first = this.first.next;
@@ -235,11 +241,11 @@ public class LinkedList {
 		} else 
 		{
 			Node cur = this.first;
-			while (cur.next != node && cur != null) 
+			while (cur != null && cur.next != node) 
 			{
 				cur = cur.next;
 			}
-
+	
 			if (cur != null && cur.next == node) 
 			{
 				cur.next = node.next;  
@@ -249,9 +255,8 @@ public class LinkedList {
 				}
 			}
 		}
-
-		size--;
 	
+		size--;
 	}
 
 	/**
