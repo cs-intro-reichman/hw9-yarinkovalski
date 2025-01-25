@@ -219,45 +219,45 @@ public class LinkedList {
 	 * @param node
 	 *        the node that will be removed from this list
 	 */
-	public void remove(Node node) 
-	{
-		if (node == null) 
-		{
-			throw new NullPointerException("Node cannot be null");
-		}
-	
-		if (first == null) 
-		{
-			return;
-		}
-	
-		if (node == this.first) 
-		{
-			this.first = this.first.next;
-			if (this.first == null) 
-			{ 
-				this.last = null;
-			}
-		} else 
-		{
-			Node cur = this.first;
-			while (cur != null && cur.next != node) 
-			{
-				cur = cur.next;
-			}
-	
-			if (cur != null && cur.next == node) 
-			{
-				cur.next = node.next;  
-				if (node == this.last) 
-				{
-					this.last = cur;
-				}
-			}
-		}
-	
-		size--;
-	}
+public void remove(Node node) 
+{
+    if (node == null) 
+    {
+        throw new NullPointerException("Node cannot be null");
+    }
+
+    if (first == null) 
+    {
+        return;
+    }
+
+    if (node == this.first) 
+    {
+        this.first = this.first.next;
+        if (this.first == null) 
+        { 
+            this.last = null;
+        }
+    } else 
+    {
+        Node cur = this.first;
+        while (cur != null && cur.next != node) 
+        {
+            cur = cur.next;
+        }
+
+        if (cur != null && cur.next == node) 
+        {
+            cur.next = node.next;  
+            if (node == this.last) 
+            {
+                this.last = cur;
+            }
+        }
+    }
+
+    size--;
+}
 
 	/**
 	 * Removes from this list the node which is located at the given index.
@@ -305,37 +305,36 @@ public class LinkedList {
 	 * @throws IllegalArgumentException
 	 *         if the given memory block is not in this list
 	 */
-	public void remove(MemoryBlock block) {
-		
-
-		if (this.first == null) 
-		{
-			return; 
+	public void remove(MemoryBlock block) 
+	{
+		if (block == null) {
+			throw new IllegalArgumentException("Memory block cannot be null");
 		}
 	
-		
+		if (this.first == null) 
+		{
+			throw new IllegalArgumentException("Memory block not found in list");
+		}
+	
 		if (this.first.block.equals(block)) 
-		{  
-			first = this.first.next;  
-			if (this.first == null) 
-			{ 
+		{
+			first = this.first.next;
+			if (this.first == null) {
 				this.last = null;
 			}
 			size--;
 			return;
 		}
 	
-		
 		Node cur = this.first;
 		while (cur != null && cur.next != null) 
 		{
 			if (cur.next.block.equals(block)) 
-			{  
-				Node nodeToRemove = cur.next;
-				cur.next = cur.next.next; 
+			{
+				Node nodeRemove = cur.next;
+				cur.next = cur.next.next;
 	
-				
-				if (nodeToRemove == this.last) 
+				if (nodeRemove == this.last) 
 				{
 					this.last = cur;
 				}
@@ -344,8 +343,10 @@ public class LinkedList {
 				return;
 			}
 			cur = cur.next;
-			}
-	}	
+		}
+	
+		throw new IllegalArgumentException("Memory block not found in list");
+	}
 
 	/**
 	 * Returns an iterator over this list, starting with the first element.
