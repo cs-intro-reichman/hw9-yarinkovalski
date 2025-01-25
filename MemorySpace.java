@@ -59,7 +59,38 @@ public class MemorySpace {
 	 */
 	public int malloc(int length) {		
 		//// Replace the following statement with your code
-		return -1;
+
+			
+			for (int i = 0; i < freeList.getSize(); i++) 
+			{
+				MemoryBlock fBlock = freeList.getBlock(i);
+				
+				
+				if (fBlock.length >= length) 
+				{
+					int allAdress = fBlock.baseAddress;
+
+					MemoryBlock allocatedBlock = new MemoryBlock(allAdress, length);
+
+					
+					allocatedList.addLast(allocatedBlock);
+
+	
+					if (fBlock.length == length) 
+					{
+						
+						freeList.remove(i);
+					} else 
+					{
+						
+						fBlock.baseAddress = (fBlock.baseAddress + length);
+						fBlock.length = (fBlock.length - length);
+					}
+
+					return allAdress;
+				}
+			}
+			return -1;
 	}
 
 	/**
@@ -70,8 +101,47 @@ public class MemorySpace {
 	 * @param baseAddress
 	 *            the starting address of the block to freeList
 	 */
-	public void free(int address) {
+	public void free(int address) 
+	{
 		//// Write your code here
+	
+	    
+		Node cur = allocatedList.getFirst();
+		Node prev = null;
+		
+		while (cur != null) {
+			MemoryBlock block = cur.block;
+			
+			// If we find the block with the matching address
+			if (block.baseAddress == address) 
+			{
+				
+				if (prev == null) 
+				{
+					
+					allocatedList.setFirst(cur.next);
+				} else {
+					
+					prev.next = cur.next;
+				}
+				
+				if (cur.next == null) 
+				{
+					allocatedList.setLast(prev);
+				}
+				
+				freeList.addLast(block);
+	
+				return;
+			}
+			
+			
+			prev = cur;
+			cur = cur.next;
+		}
+	
+		System.out.println("The Block with address " + address + " not found");
+	
 	}
 	
 	/**
@@ -87,8 +157,49 @@ public class MemorySpace {
 	 * Normally, called by malloc, when it fails to find a memory block of the requested size.
 	 * In this implementation Malloc does not call defrag.
 	 */
-	public void defrag() {
-		/// TODO: Implement defrag test
+	public void defrag() 
+	{
+		
 		//// Write your code here
+	
+	
+		
+			
+			if (freeList.getSize() > 1) {
+				Node cur = freeList.getFirst();
+				while (cur != null && cur.next != null) 
+				{
+					Node next = cur.next;
+					while (next != null) 
+					{
+			
+						if (cur.block.baseAddress > next.block.baseAddress) 
+						{
+							MemoryBlock temp = cur.block;
+							cur.block = next.block;
+							next.block = temp;
+						}
+						next = next.next;
+					}
+					cur = cur.next;
+				}
+			}
+		
+			Node cur = freeList.getFirst();
+			while (cur != null && cur.next != null) 
+			{
+				MemoryBlock curBlock = cur.block;
+				MemoryBlock nextB = cur.next.block;
+		
+				if (curBlock.baseAddress + curBlock.length == nextB.baseAddress) 
+				{
+					curBlock.length += nextB.length;
+					freeList.remove(cur.next); 
+				} else 
+				{
+					cur = cur.next;
+				}
+			}
+		
 	}
 }
