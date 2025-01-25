@@ -96,46 +96,45 @@ public class MemorySpace {
 	 */
 	public void free(int address) 
 	{
-		// Check if the free list is empty
-		if (freeList.getSize() == 0) {
-			throw new IllegalArgumentException("ERROR IllegalArgumentException: index must be between 0 and size");
-		}
+		//// Write your code here
 	
+	    
 		Node cur = allocatedList.getFirst();
 		Node prev = null;
-	
+		
 		while (cur != null) {
 			MemoryBlock block = cur.block;
-	
+			
 			// If we find the block with the matching address
 			if (block.baseAddress == address) 
 			{
-	
+				
 				if (prev == null) 
 				{
-	
+					
 					allocatedList.setFirst(cur.next);
 				} else {
-	
+					
 					prev.next = cur.next;
 				}
-	
+				
 				if (cur.next == null) 
 				{
 					allocatedList.setLast(prev);
 				}
-	
+				
 				freeList.addLast(block);
 	
 				return;
 			}
-	
+			
+			
 			prev = cur;
 			cur = cur.next;
 		}
 	
-		// If the block with the address was not found
-		throw new IllegalArgumentException("ERROR IllegalArgumentException: index must be between 0 and size");
+		System.out.println("The Block with address " + address + " not found");
+	
 	}
 	
 	/**
