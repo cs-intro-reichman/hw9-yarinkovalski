@@ -98,8 +98,9 @@ public class MemorySpace {
 	{
 		//// Write your code here
 	
-	    if (this.freeList.getLast()==null)
-			return;
+		if (freeList.getSize() == 0) {
+			throw new IllegalArgumentException("Cannot free memory. The free list is empty.");
+		}
 		Node cur = allocatedList.getFirst();
 		Node prev = null;
 		
