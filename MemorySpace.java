@@ -98,7 +98,8 @@ public class MemorySpace {
 	{
 		//// Write your code here
 	
-	    
+	    if (this.freeList.getLast()==null)
+			return;
 		Node cur = allocatedList.getFirst();
 		Node prev = null;
 		
