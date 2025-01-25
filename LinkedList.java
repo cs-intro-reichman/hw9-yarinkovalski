@@ -305,19 +305,16 @@ public void remove(Node node)
 	 * @throws IllegalArgumentException
 	 *         if the given memory block is not in this list
 	 */
-	public void remove(MemoryBlock block) 
-	{
+	public void remove(MemoryBlock block) {
 		if (block == null) {
-			throw new IllegalArgumentException("Memory block cannot be null");
+			throw new IllegalArgumentException("index must be between 0 and size");
 		}
 	
-		if (this.first == null) 
-		{
-			throw new IllegalArgumentException("Memory block not found in list");
+		if (this.first == null) {
+			throw new IllegalArgumentException("index must be between 0 and size");
 		}
 	
-		if (this.first.block.equals(block)) 
-		{
+		if (this.first.block.equals(block)) {
 			first = this.first.next;
 			if (this.first == null) {
 				this.last = null;
@@ -327,15 +324,12 @@ public void remove(Node node)
 		}
 	
 		Node cur = this.first;
-		while (cur != null && cur.next != null) 
-		{
-			if (cur.next.block.equals(block)) 
-			{
+		while (cur != null && cur.next != null) {
+			if (cur.next.block.equals(block)) {
 				Node nodeRemove = cur.next;
 				cur.next = cur.next.next;
 	
-				if (nodeRemove == this.last) 
-				{
+				if (nodeRemove == this.last) {
 					this.last = cur;
 				}
 	
@@ -345,7 +339,7 @@ public void remove(Node node)
 			cur = cur.next;
 		}
 	
-		throw new IllegalArgumentException("Memory block not found in list");
+		throw new IllegalArgumentException("index must be between 0 and size");
 	}
 
 	/**
