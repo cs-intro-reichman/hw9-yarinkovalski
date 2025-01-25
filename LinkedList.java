@@ -168,17 +168,22 @@ public class LinkedList {
 	 * @throws IllegalArgumentException
 	 *         if index is negative or greater than or equal to size
 	 */
-	public MemoryBlock getBlock(int index) {
-		//// Replace the following statement with your code
-	
-		
-		Node current = this.first;  
-		for (int i = 0; i < index; i++) 
-		{
-			current = current.next;  
+	public MemoryBlock getBlock(int index) 
+	{
+		if (index < 0 || index >= this.getSize()) {
+			throw new IllegalArgumentException("index must be between 0 and size");
 		}
 	
-		return current.block;  
+		if (this.first == null) {
+			throw new IllegalArgumentException("index must be between 0 and size");
+		}
+	
+		Node current = this.first;
+		for (int i = 0; i < index; i++) {
+			current = current.next;
+		}
+	
+		return current.block;
 	}	
 
 	/**
