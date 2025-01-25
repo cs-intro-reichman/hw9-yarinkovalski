@@ -48,7 +48,7 @@ public class MemoryBlock {
 	 * The block's contents appears within parentheses.
 	 * For example: (208,10)
 	 */
-	public String toString() {
-		return "(" + baseAddress + " , " + length +")";
-	}
+    public String toString() {
+        return String.format("[%d,%d]", baseAddress, length);
+    }
 }

@@ -80,7 +80,6 @@ public class MemorySpace {
 				}
 	
 				return allAddress;
-				
 			}
 		}
 		
@@ -156,8 +155,6 @@ public class MemorySpace {
 		
 		//// Write your code here
 	
-	
-		
 			
 			if (freeList.getSize() > 1) {
 				Node cur = freeList.getFirst();

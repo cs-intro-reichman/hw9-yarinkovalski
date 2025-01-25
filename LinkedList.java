@@ -352,19 +352,14 @@ public void remove(Node node)
 	/**
 	 * 
 	 */
-	public String toString() {
-		
-		String result = "";
-		Node cur = this.first; 
-		while (cur != null) 
-		{
-			result += cur.toString(); 
-			if (cur.next != null) 
-			{
-				result += " -> "; 
-			}
-			cur = cur.next;
+	public String toString() 
+	{
+		String str = "";
+		ListIterator itr = this.iterator();
+		while (itr.hasNext()) {
+		str += "(" + itr.current.block.baseAddress + " , " + itr.current.block.length + ") ";
+		itr.next();
 		}
-		return result;
-	}
+		return str;
+		}
 }
