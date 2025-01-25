@@ -101,7 +101,12 @@ public class MemorySpace {
 	    
 		Node cur = allocatedList.getFirst();
 		Node prev = null;
-		
+		if(allocatedList.getSize() == 0){
+			throw new IllegalArgumentException(
+					"index must be between 0 and size");
+		}
+		else{
+
 		while (cur != null) {
 			MemoryBlock block = cur.block;
 			
@@ -136,6 +141,7 @@ public class MemorySpace {
 		System.out.println("The Block with address " + address + " not found");
 	
 	}
+}
 	
 	/**
 	 * A textual representation of the free list and the allocated list of this memory space, 
